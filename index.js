@@ -16,9 +16,12 @@ export class DurationElement extends HTMLElement {
 
 	render() {
 		const durationString = this.getAttribute("duration") || "P1D";
-		
-        const duration = Temporal.Duration.from(durationString);
 
-		this.textContent = this.formatter.format(duration);
+		try {
+			const duration = Temporal.Duration.from(durationString);
+			this.textContent = this.formatter.format(duration);
+		} catch (e) {
+			this.textContent = "–";
+		}
 	}
 }

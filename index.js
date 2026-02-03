@@ -3,8 +3,8 @@
  * @attribute {string} duration - Duration in ISO 8601 duration format
  * @attribute {string} locale - BCP 47 language tag
  *
- * @property {object} duration - duration object
- * @property  formatter - Intl.DurationFormat
+ * @property {Temporal.Duration} duration - duration object
+ * @property {Intl.DurationFormat} formatter - Intl.DurationFormat
  *
  * @tagname formatted-duration
  */
@@ -13,17 +13,17 @@ export class DurationElement extends HTMLElement {
 	static get observedAttributes() {
 		return ["duration", "locale"];
 	}
-	connectedCallback() {
-		if (!this.hasAttribute("locale")) {
-			const locale = navigator.language || "de-DE";
-			this.formatter = new Intl.DurationFormat(locale, {
-				style: "long",
-			});
-		}
 
-		if (!this.hasAttribute("duration")) {
-			this.duration = { days: 0 };
-		}
+	constructor() {
+		super();
+		const locale = navigator.language || "en-US";
+		this.formatter = new Intl.DurationFormat(locale, { style: "long" });
+		this._initialized = false;
+		this.duration = Temporal.Duration.from("P0D");
+	}
+
+	connectedCallback() {
+		this._initialized = true;
 		this.render();
 	}
 
@@ -33,25 +33,24 @@ export class DurationElement extends HTMLElement {
 			try {
 				this.duration = Temporal.Duration.from(newValue);
 			} catch (e) {
-				this.duration = { days: 0 };
+				this.duration = Temporal.Duration.from("P0D");
 			}
 		} else if (name === "locale") {
 			this.formatter = new Intl.DurationFormat(newValue, {
 				style: "long",
 			});
 		}
-		this.render();
+		if (this.isConnected && this._initialized) {
+			this.render();
+		}
 	}
 
 	render() {
-		if (!this.formatter || !this.duration) return;
-
 		const parts = this.formatter.formatToParts(this.duration);
-
 		this.innerHTML = parts
 			.map(
 				(part) =>
-					`<span class="${part.type} ${part.unit}">${part.value}</span>`,
+					`<span class="${part.type} ${part.unit || ''}">${part.value}</span>`,
 			)
 			.join("");
 	}

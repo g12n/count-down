@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Count-down component Demo</title>
+</head>
+<body>
+    <formatted-duration></formatted-duration>
+    <link rel="stylesheet" href="styles.css">
+
+    <script type="module">
+        import {DurationElement} from "./index.js"
+        customElements.define("formatted-duration", DurationElement)
+    </script>
+</body>
+</html>

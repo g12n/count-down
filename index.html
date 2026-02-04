@@ -8,11 +8,32 @@
 <body>
 
 
-    <formatted-duration duration="P1M2D"></formatted-duration>
-
+    <formatted-duration locale="en" duration="P1M2D"></formatted-duration>
     <formatted-duration locale="de" duration="P1M2D"></formatted-duration>
     <formatted-duration locale="fr" duration="P1Y1M2D"></formatted-duration>
     <formatted-duration locale="sw" duration="P1Y1M2D"></formatted-duration>
+    <formatted-duration locale="de" duration="P1Y1M3W2DT1H1m3s"></formatted-duration>
+   
+    <formatted-duration locale="fr" duration="P1Y1M3W2DT1H1m3s"></formatted-duration>
+    <formatted-duration locale="sw" duration="P1Y1M3W2DT1H1m3s"></formatted-duration>
+    <formatted-duration locale="fi" duration="P1Y1M3W2DT1H1m3s"></formatted-duration>
+    <formatted-duration locale="pt" duration="P1Y1M3W2DT1H1m3s"></formatted-duration>
+    <formatted-duration locale="es" duration="P1Y1M3W2DT1H1m3s"></formatted-duration>
+
+    <formatted-duration locale="ksh" duration="P1Y1M3W2DT1H1m3s"></formatted-duration>
+
+    <h2>Style Variants</h2>
+    <h3>Long (default)</h3>
+    <formatted-duration locale="en" duration="P1Y2M3DT4H5M6S" duration-style="long"></formatted-duration>
+
+    <h3>Short</h3>
+    <formatted-duration locale="en" duration="P1Y2M3DT4H5M6S" duration-style="short"></formatted-duration>
+
+    <h3>Narrow</h3>
+    <formatted-duration locale="en" duration="P1Y2M3DT4H5M6S" duration-style="narrow"></formatted-duration>
+
+    <h3>Digital</h3>
+    <formatted-duration locale="en" duration="P1Y2M3DT4H5M6S" duration-style="digital"></formatted-duration>
 
 
     <link rel="stylesheet" href="styles.css">

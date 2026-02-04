@@ -2,6 +2,7 @@
  *
  * @attribute {string} duration - Duration in ISO 8601 duration format
  * @attribute {string} locale - BCP 47 language tag
+ * @attribute {string} duration-style - Duration format style: "long", "short", "narrow", or "digital" (default: "long")
  *
  * @property {Temporal.Duration} duration - duration object
  * @property {Intl.DurationFormat} formatter - Intl.DurationFormat
@@ -11,18 +12,18 @@
 
 export class DurationElement extends HTMLElement {
   static get observedAttributes() {
-    return ["duration", "locale"];
+    return ["duration", "locale", "duration-style"];
   }
 
   constructor() {
     super();
     const locale = navigator.language || "en-US";
-    this.durationStyle="long"
+    this.durationStyle = "long";
 
     this.formatter = new Intl.DurationFormat(locale, { style: this.durationStyle });
     this._initialized = false;
     this.duration = Temporal.Duration.from("P0D");
-    
+
   }
 
   connectedCallback() {
@@ -40,6 +41,13 @@ export class DurationElement extends HTMLElement {
       }
     } else if (name === "locale") {
       this.formatter = new Intl.DurationFormat(newValue, {
+        style: this.durationStyle,
+      });
+    } else if (name === "duration-style") {
+      this.durationStyle = newValue || "long";
+
+      const locale = this.getAttribute("locale") || navigator.language || "en-US";
+      this.formatter = new Intl.DurationFormat(locale, {
         style: this.durationStyle,
       });
     }

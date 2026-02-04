@@ -1,4 +1,17 @@
-formatted-duration{
+formatted-duration {
     display: block;
+
+    
     padding: 1em;
+}
+
+formatted-duration .integer {
+}
+
+.month {
+}
+
+.year {
+}
+.day {
 }

@@ -10,48 +10,58 @@
  */
 
 export class DurationElement extends HTMLElement {
-	static get observedAttributes() {
-		return ["duration", "locale"];
-	}
+  static get observedAttributes() {
+    return ["duration", "locale"];
+  }
 
-	constructor() {
-		super();
-		const locale = navigator.language || "en-US";
-		this.formatter = new Intl.DurationFormat(locale, { style: "long" });
-		this._initialized = false;
-		this.duration = Temporal.Duration.from("P0D");
-	}
+  constructor() {
+    super();
+    const locale = navigator.language || "en-US";
+    this.durationStyle="long"
 
-	connectedCallback() {
-		this._initialized = true;
-		this.render();
-	}
+    this.formatter = new Intl.DurationFormat(locale, { style: this.durationStyle });
+    this._initialized = false;
+    this.duration = Temporal.Duration.from("P0D");
+    
+  }
 
-	attributeChangedCallback(name, oldValue, newValue) {
-		if (oldValue === newValue) return;
-		if (name === "duration") {
-			try {
-				this.duration = Temporal.Duration.from(newValue);
-			} catch (e) {
-				this.duration = Temporal.Duration.from("P0D");
-			}
-		} else if (name === "locale") {
-			this.formatter = new Intl.DurationFormat(newValue, {
-				style: "long",
-			});
-		}
-		if (this.isConnected && this._initialized) {
-			this.render();
-		}
-	}
+  connectedCallback() {
+    this._initialized = true;
+    this.render();
+  }
 
-	render() {
-		const parts = this.formatter.formatToParts(this.duration);
-		this.innerHTML = parts
-			.map(
-				(part) =>
-					`<span class="${part.type} ${part.unit || ''}">${part.value}</span>`,
-			)
-			.join("");
-	}
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (oldValue === newValue) return;
+    if (name === "duration") {
+      try {
+        this.duration = Temporal.Duration.from(newValue);
+      } catch (e) {
+        this.duration = Temporal.Duration.from("P0D");
+      }
+    } else if (name === "locale") {
+      this.formatter = new Intl.DurationFormat(newValue, {
+        style: this.durationStyle,
+      });
+    }
+    if (this.isConnected && this._initialized) {
+      this.render();
+    }
+  }
+
+  render() {
+    const parts = this.formatter.formatToParts(this.duration);
+    const fragment = document.createDocumentFragment();
+    for (const part of parts) {
+      if (part.type === "literal") {
+        fragment.appendChild(document.createTextNode(part.value));
+        continue;
+      }
+      let partElement = document.createElement("span");
+      partElement.classList.add(part.type);
+      if (part.unit) partElement.classList.add(part.unit);
+      partElement.textContent = part.value;
+      fragment.appendChild(partElement);
+    }
+    this.replaceChildren(fragment);
+  }
 }

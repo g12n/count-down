@@ -1,7 +1,10 @@
 formatted-duration {
     display: block;
+    padding: 1em;
+}
 
-    
+count-down {
+    display: block;
     padding: 1em;
 }
 

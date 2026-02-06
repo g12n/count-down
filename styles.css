@@ -18,3 +18,21 @@ formatted-duration .integer {
 }
 .day {
 }
+
+
+count-down:defined{
+    display: block;
+    background-color: lemonchiffon;
+    margin: 10px;
+}
+
+count-down:state(future){
+    background-color: navajowhite;
+}
+count-down:state(past){
+    background-color: seagreen;
+}
+
+count-down:state(invalid){
+    background-color: firebrick;
+}

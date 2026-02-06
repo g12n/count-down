@@ -15,6 +15,7 @@ export class CountdownElement extends HTMLElement {
 
 	constructor() {
 		super();
+		this._internals = this.attachInternals();
 		this.targetDate = null;
 		this.intervalId = null;
 	}
@@ -27,14 +28,32 @@ export class CountdownElement extends HTMLElement {
 		this.stopCountdown();
 	}
 
+	set status(val) {
+		if (val > 0) {
+			this._internals.states.add("future");
+			this._internals.states.delete("now");
+			this._internals.states.delete("past");
+		} else if (val === 0) {
+			this._internals.states.delete("future");
+			this._internals.states.add("now");
+			this._internals.states.delete("past");
+		} else {
+			this._internals.states.delete("future");
+			this._internals.states.delete("now");
+			this._internals.states.add("past");
+		}
+	}
 	attributeChangedCallback(name, oldValue, newValue) {
 		if (oldValue === newValue) return;
 
 		try {
 			this.targetDate = Temporal.PlainDateTime.from(newValue);
 		} catch {
+			this._internals.states.add("invalid");
 			this.targetDate = null;
+			return;
 		}
+		this._internals.states.delete("invalid");
 	}
 
 	startCountdown() {
@@ -56,8 +75,11 @@ export class CountdownElement extends HTMLElement {
 
 	tick() {
 		if (!this.targetDate) return;
+		const now = Temporal.Now.plainDateTimeISO();
 
-		const duration = Temporal.Now.plainDateTimeISO().until(this.targetDate, {
+		this.status = Temporal.PlainDateTime.compare(this.targetDate, now);
+
+		const duration = now.until(this.targetDate, {
 			largestUnit: this.dataset.largestUnit || "year",
 			smallestUnit: "seconds",
 		});

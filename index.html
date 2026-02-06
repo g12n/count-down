@@ -1,48 +1,106 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Count-down component Demo</title>
-</head>
-<body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Count-down component Demo</title>
+	</head>
+	<body>
+		<formatted-duration locale="en" duration="P1M2D"></formatted-duration>
+		<formatted-duration locale="de" duration="P1M2D"></formatted-duration>
+		<formatted-duration locale="fr" duration="P1Y1M2D"></formatted-duration>
+		<formatted-duration locale="sw" duration="P1Y1M2D"></formatted-duration>
+		<formatted-duration
+			locale="de"
+			duration="P1Y1M3W2DT1H1m3s"
+		></formatted-duration>
+
+		<formatted-duration
+			locale="fr"
+			duration="P1Y1M3W2DT1H1m3s"
+		></formatted-duration>
+		<formatted-duration
+			locale="sw"
+			duration="P1Y1M3W2DT1H1m3s"
+		></formatted-duration>
+		<formatted-duration
+			locale="fi"
+			duration="P1Y1M3W2DT1H1m3s"
+		></formatted-duration>
+		<formatted-duration
+			locale="pt"
+			duration="P1Y1M3W2DT1H1m3s"
+		></formatted-duration>
+		<formatted-duration
+			locale="es"
+			duration="P1Y1M3W2DT1H1m3s"
+		></formatted-duration>
+
+		<formatted-duration
+			locale="ksh"
+			duration="P1Y1M3W2DT1H1m3s"
+		></formatted-duration>
+
+		<h2>Style Variants</h2>
+		<h3>Long (default)</h3>
+		<formatted-duration
+			locale="en"
+			duration="P1Y2M3DT4H5M6S"
+			duration-style="long"
+		></formatted-duration>
+
+		<h3>Short</h3>
+		<formatted-duration
+			locale="en"
+			duration="P1Y2M3DT4H5M6S"
+			duration-style="short"
+		></formatted-duration>
+
+		<h3>Narrow</h3>
+		<formatted-duration
+			locale="en"
+			duration="P1Y2M3DT4H5M6S"
+			duration-style="narrow"
+		></formatted-duration>
+
+		<h3>Digital</h3>
+		<formatted-duration
+			locale="en"
+			duration="P1Y2M3DT4H5M6S"
+			duration-style="digital"
+		></formatted-duration>
+
+		<h3>Countdown</h3>
+		<count-down data-target-date="2027-12-25">
+			<template>
+			<formatted-duration
+					locale="en"
+					duration="P1Y2M3DT4H5M6S"
+					duration-style="digital"
+				>
+			</formatted-duration>
+			</template>
+		</count-down>
 
 
-    <formatted-duration locale="en" duration="P1M2D"></formatted-duration>
-    <formatted-duration locale="de" duration="P1M2D"></formatted-duration>
-    <formatted-duration locale="fr" duration="P1Y1M2D"></formatted-duration>
-    <formatted-duration locale="sw" duration="P1Y1M2D"></formatted-duration>
-    <formatted-duration locale="de" duration="P1Y1M3W2DT1H1m3s"></formatted-duration>
-   
-    <formatted-duration locale="fr" duration="P1Y1M3W2DT1H1m3s"></formatted-duration>
-    <formatted-duration locale="sw" duration="P1Y1M3W2DT1H1m3s"></formatted-duration>
-    <formatted-duration locale="fi" duration="P1Y1M3W2DT1H1m3s"></formatted-duration>
-    <formatted-duration locale="pt" duration="P1Y1M3W2DT1H1m3s"></formatted-duration>
-    <formatted-duration locale="es" duration="P1Y1M3W2DT1H1m3s"></formatted-duration>
+		<count-down data-target-date="2026-12" data-largest-unit="second">
+			<formatted-duration locale="en"></formatted-duration>
+		</count-down>
 
-    <formatted-duration locale="ksh" duration="P1Y1M3W2DT1H1m3s"></formatted-duration>
+		<count-down data-target-date="2021-12-15" data-largest-unit="second">
+			<formatted-duration locale="en"></formatted-duration>
+		</count-down>
 
-    <h2>Style Variants</h2>
-    <h3>Long (default)</h3>
-    <formatted-duration locale="en" duration="P1Y2M3DT4H5M6S" duration-style="long"></formatted-duration>
+		<count-down data-target-date="2027-12-15" data-largest-unit="second">
+			<formatted-duration locale="en"></formatted-duration>
+		</count-down>
+		<link rel="stylesheet" href="styles.css" />
 
-    <h3>Short</h3>
-    <formatted-duration locale="en" duration="P1Y2M3DT4H5M6S" duration-style="short"></formatted-duration>
-
-    <h3>Narrow</h3>
-    <formatted-duration locale="en" duration="P1Y2M3DT4H5M6S" duration-style="narrow"></formatted-duration>
-
-    <h3>Digital</h3>
-    <formatted-duration locale="en" duration="P1Y2M3DT4H5M6S" duration-style="digital"></formatted-duration>
-
-
-    <link rel="stylesheet" href="styles.css">
-
-    <script src="https://cdn.jsdelivr.net/npm/temporal-polyfill@0.3.0/global.min.js"></script>
-
-    <script type="module">
-        import {DurationElement} from "./index.js"
-        customElements.define("formatted-duration", DurationElement)
-    </script>
-</body>
+		<script src="https://cdn.jsdelivr.net/npm/temporal-polyfill@0.3.0/global.min.js"></script>
+		<script
+			type="module"
+			src="./formatted-duration/formatted-duration.js"
+		></script>
+		<script type="module" src="./count-down/count-down.js"></script>
+	</body>
 </html>

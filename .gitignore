@@ -1,0 +1,29 @@
+# Playwright MCP output (screenshots, snapshots, console logs)
+.playwright-mcp/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+.directory
+
+# Editors
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Dependencies and logs
+node_modules/
+*.log

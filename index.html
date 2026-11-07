@@ -3,91 +3,322 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta
+			name="description"
+			content="Two custom elements built on the Temporal API and Intl.DurationFormat: count-down and formatted-duration."
+		/>
 		<title>Count-down component Demo</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;600&display=swap"
+		/>
+		<link rel="stylesheet" href="styles.css" />
 	</head>
 	<body>
-		<formatted-duration locale="en" duration="P1M2D"></formatted-duration>
-		<formatted-duration locale="de" duration="P1M2D"></formatted-duration>
-		<formatted-duration locale="fr" duration="P1Y1M2D"></formatted-duration>
-		<formatted-duration locale="sw" duration="P1Y1M2D"></formatted-duration>
-		<formatted-duration
-			locale="de"
-			duration="P1Y1M3W2DT1H1m3s"
-		></formatted-duration>
+		<div class="page">
+			<header class="masthead">
+				<h1>Count-down</h1>
+				<p>
+					Two custom elements built on the Temporal API.
+					<code>&lt;count-down&gt;</code> can show the time left with
+					<code>&lt;formatted-duration&gt;</code>, which also works
+					on its own.
+				</p>
+				<nav aria-label="Components">
+					<ul class="toc">
+						<li>
+							<a href="#count-down">
+								<code>&lt;count-down&gt;</code>
+								<span>Counts down to a date and reports its state</span>
+							</a>
+						</li>
+						<li>
+							<a href="#formatted-duration">
+								<code>&lt;formatted-duration&gt;</code>
+								<span>Writes a duration in any locale</span>
+							</a>
+						</li>
+					</ul>
+				</nav>
+			</header>
 
-		<formatted-duration
-			locale="fr"
-			duration="P1Y1M3W2DT1H1m3s"
-		></formatted-duration>
-		<formatted-duration
-			locale="sw"
-			duration="P1Y1M3W2DT1H1m3s"
-		></formatted-duration>
-		<formatted-duration
-			locale="fi"
-			duration="P1Y1M3W2DT1H1m3s"
-		></formatted-duration>
-		<formatted-duration
-			locale="pt"
-			duration="P1Y1M3W2DT1H1m3s"
-		></formatted-duration>
-		<formatted-duration
-			locale="es"
-			duration="P1Y1M3W2DT1H1m3s"
-		></formatted-duration>
+			<main class="stack">
+				<!-- ============ Component 1: count-down ============ -->
+				<section class="component" aria-labelledby="count-down">
+					<header class="component__head">
+						<h2 id="count-down"><code>&lt;count-down&gt;</code></h2>
+						<p>
+							Counts down to a target date, updating every
+							second. It sets a custom state you can style with
+							<code>:state()</code>. Put a
+							<code>&lt;formatted-duration&gt;</code> inside it
+							and the countdown writes the time left into it.
+						</p>
+						<dl class="spec">
+							<div>
+								<dt>Attributes</dt>
+								<dd><code>data-target-date</code></dd>
+								<dd><code>data-largest-unit</code></dd>
+								<dd><code>data-smallest-unit</code></dd>
+							</div>
+							<div>
+								<dt>States</dt>
+								<dd><code>future</code></dd>
+								<dd><code>now</code></dd>
+								<dd><code>past</code></dd>
+								<dd><code>invalid</code></dd>
+							</div>
+						</dl>
+					</header>
 
-		<formatted-duration
-			locale="ksh"
-			duration="P1Y1M3W2DT1H1m3s"
-		></formatted-duration>
+					<div class="section">
+						<h3>States</h3>
+						<div class="grid">
+							<figure class="demo">
+								<count-down
+									data-target-date="2026-12-24T18:00"
+									data-largest-unit="second"
+								>
+									<formatted-duration
+										locale="en"
+									></formatted-duration>
+								</count-down>
+								<figcaption>
+									data-target-date="2026-12-24T18:00"<br />
+									data-largest-unit="second"
+								</figcaption>
+							</figure>
 
-		<h2>Style Variants</h2>
-		<h3>Long (default)</h3>
-		<formatted-duration
-			locale="en"
-			duration="P1Y2M3DT4H5M6S"
-			duration-style="long"
-		></formatted-duration>
+							<figure class="demo">
+								<count-down
+									data-target-date="2026-02-06T23:09"
+									data-largest-unit="week"
+									data-smallest-unit="second"
+								>
+									<formatted-duration
+										locale="en"
+									></formatted-duration>
+								</count-down>
+								<figcaption>
+									data-target-date="2026-02-06T23:09"<br />
+									data-largest-unit="week"
+								</figcaption>
+							</figure>
 
-		<h3>Short</h3>
-		<formatted-duration
-			locale="en"
-			duration="P1Y2M3DT4H5M6S"
-			duration-style="short"
-		></formatted-duration>
+							<figure class="demo">
+								<count-down
+									data-target-date="2021-12-15"
+									data-largest-unit="second"
+								>
+									<formatted-duration
+										locale="en"
+									></formatted-duration>
+								</count-down>
+								<figcaption>
+									data-target-date="2021-12-15"<br />
+									data-largest-unit="second"
+								</figcaption>
+							</figure>
 
-		<h3>Narrow</h3>
-		<formatted-duration
-			locale="en"
-			duration="P1Y2M3DT4H5M6S"
-			duration-style="narrow"
-		></formatted-duration>
+							<figure class="demo">
+								<count-down data-target-date="soon">
+									<formatted-duration
+										locale="en"
+									></formatted-duration>
+								</count-down>
+								<figcaption>data-target-date="soon"</figcaption>
+							</figure>
+						</div>
+					</div>
+				</section>
 
-		<h3>Digital</h3>
-		<formatted-duration
-			locale="en"
-			duration="P1Y2M3DT4H5M6S"
-			duration-style="digital"
-		></formatted-duration>
+				<!-- ============ Component 2: formatted-duration ============ -->
+				<section
+					class="component"
+					aria-labelledby="formatted-duration"
+				>
+					<header class="component__head">
+						<h2 id="formatted-duration">
+							<code>&lt;formatted-duration&gt;</code>
+						</h2>
+						<p>
+							Writes an ISO 8601 duration as text in the language
+							you pick. It works anywhere on a page and does not
+							need <code>&lt;count-down&gt;</code>.
+						</p>
+						<dl class="spec">
+							<div>
+								<dt>Attributes</dt>
+								<dd><code>duration</code></dd>
+								<dd><code>locale</code></dd>
+								<dd><code>duration-style</code></dd>
+							</div>
+						</dl>
+					</header>
 
-		<h3>Countdown</h3>
-	
-		<count-down data-target-date="2026-12" data-largest-unit="second">
-			<formatted-duration locale="en"></formatted-duration>
-		</count-down>
+					<div class="section">
+						<h3>Style variants</h3>
+						<p class="section__note">
+							<code>duration-style</code> changes how units are
+							written. The default is <code>long</code>.
+						</p>
+						<dl class="rows">
+							<div>
+								<dt>duration-style="long"</dt>
+								<dd>
+									<formatted-duration
+										locale="en"
+										duration="P1Y2M3DT4H5M6S"
+										duration-style="long"
+									></formatted-duration>
+								</dd>
+							</div>
+							<div>
+								<dt>duration-style="short"</dt>
+								<dd>
+									<formatted-duration
+										locale="en"
+										duration="P1Y2M3DT4H5M6S"
+										duration-style="short"
+									></formatted-duration>
+								</dd>
+							</div>
+							<div>
+								<dt>duration-style="narrow"</dt>
+								<dd>
+									<formatted-duration
+										locale="en"
+										duration="P1Y2M3DT4H5M6S"
+										duration-style="narrow"
+									></formatted-duration>
+								</dd>
+							</div>
+							<div>
+								<dt>duration-style="digital"</dt>
+								<dd>
+									<formatted-duration
+										locale="en"
+										duration="P1Y2M3DT4H5M6S"
+										duration-style="digital"
+									></formatted-duration>
+								</dd>
+							</div>
+						</dl>
+					</div>
 
-		<count-down data-target-date="2026-02-06T23:09" data-largest-unit="week" data-smallest-unit="second">
-			<formatted-duration locale="en"></formatted-duration>
-		</count-down>
-
-		<count-down data-target-date="2026-02-15" data-largest-unit="second">
-			<formatted-duration locale="en"></formatted-duration>
-		</count-down>
-
-		<count-down data-target-date="2021-12-15" data-largest-unit="second">
-			<formatted-duration locale="en"></formatted-duration>
-		</count-down>
-		<link rel="stylesheet" href="styles.css" />
+					<div class="section">
+						<h3>Locales</h3>
+						<p class="section__note">
+							The same duration in different languages, set with
+							the <code>locale</code> attribute.
+						</p>
+						<dl class="rows">
+							<div>
+								<dt>locale="en" · P1M2D</dt>
+								<dd>
+									<formatted-duration
+										locale="en"
+										duration="P1M2D"
+									></formatted-duration>
+								</dd>
+							</div>
+							<div>
+								<dt>locale="de" · P1M2D</dt>
+								<dd>
+									<formatted-duration
+										locale="de"
+										duration="P1M2D"
+									></formatted-duration>
+								</dd>
+							</div>
+							<div>
+								<dt>locale="fr" · P1Y1M2D</dt>
+								<dd>
+									<formatted-duration
+										locale="fr"
+										duration="P1Y1M2D"
+									></formatted-duration>
+								</dd>
+							</div>
+							<div>
+								<dt>locale="sw" · P1Y1M2D</dt>
+								<dd>
+									<formatted-duration
+										locale="sw"
+										duration="P1Y1M2D"
+									></formatted-duration>
+								</dd>
+							</div>
+							<div>
+								<dt>locale="de"</dt>
+								<dd>
+									<formatted-duration
+										locale="de"
+										duration="P1Y1M3W2DT1H1m3s"
+									></formatted-duration>
+								</dd>
+							</div>
+							<div>
+								<dt>locale="fr"</dt>
+								<dd>
+									<formatted-duration
+										locale="fr"
+										duration="P1Y1M3W2DT1H1m3s"
+									></formatted-duration>
+								</dd>
+							</div>
+							<div>
+								<dt>locale="sw"</dt>
+								<dd>
+									<formatted-duration
+										locale="sw"
+										duration="P1Y1M3W2DT1H1m3s"
+									></formatted-duration>
+								</dd>
+							</div>
+							<div>
+								<dt>locale="fi"</dt>
+								<dd>
+									<formatted-duration
+										locale="fi"
+										duration="P1Y1M3W2DT1H1m3s"
+									></formatted-duration>
+								</dd>
+							</div>
+							<div>
+								<dt>locale="pt"</dt>
+								<dd>
+									<formatted-duration
+										locale="pt"
+										duration="P1Y1M3W2DT1H1m3s"
+									></formatted-duration>
+								</dd>
+							</div>
+							<div>
+								<dt>locale="es"</dt>
+								<dd>
+									<formatted-duration
+										locale="es"
+										duration="P1Y1M3W2DT1H1m3s"
+									></formatted-duration>
+								</dd>
+							</div>
+							<div>
+								<dt>locale="ksh"</dt>
+								<dd>
+									<formatted-duration
+										locale="ksh"
+										duration="P1Y1M3W2DT1H1m3s"
+									></formatted-duration>
+								</dd>
+							</div>
+						</dl>
+					</div>
+				</section>
+			</main>
+		</div>
 
 		<script src="https://cdn.jsdelivr.net/npm/temporal-polyfill@0.3.0/global.min.js"></script>
 		<script

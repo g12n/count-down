@@ -10,33 +10,37 @@
 		--step-2: clamp(1.6rem, 1.35rem + 2cqi, 2rem);
 		--step-3: clamp(2rem, 1.6rem + 3cqi, 2.75rem);
 		--step-4: clamp(2.5rem, 1.9rem + 4.5cqi, 4rem);
-		--vf-grad: 0;
 
-		/* Typography */
-		--font-headline: -apple-system-ui-serif, ui-serif, Georgia, serif;
-		--font-body: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
-		--font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+		/* Typography: native font stacks only, no web fonts */
+		/* Old-style serif for headlines */
+		--font-headline: "Iowan Old Style", "Palatino Linotype", "URW Palladio L",
+			P052, ui-serif, serif;
+		/* Humanist sans for body text */
+		--font-body: Seravek, "Gill Sans Nova", Ubuntu, Calibri, "DejaVu Sans",
+			source-sans-pro, system-ui, sans-serif;
+		/* Coding mono for labels and code */
+		--font-mono: ui-monospace, "Cascadia Code", "Source Code Pro", Menlo,
+			Consolas, "DejaVu Sans Mono", monospace;
 
 		font-family: var(--font-body);
-
-		@media (prefers-color-scheme: dark) {
-			--vf-grad: -50;
-		}
 	}
 
 	html {
 		-webkit-font-smoothing: antialiased;
 		text-rendering: optimizeLegibility;
 		font-synthesis: none;
-		text-size-adjust: none;
+		}
+
+	* + * {
+		margin-block-start: 1em;
 	}
 
-	* {
-		font-variation-settings: "GRAD" var(--vf-grad, 0);
+	:is(h1, h2, h3, h4, h5, h6) {
+		font-family: var(--font-headline);
+	}
 
-		& + * {
-			margin-block-start: 1em;
-		}
+	:is(code, kbd, samp, pre) {
+		font-family: var(--font-mono);
 	}
 
 	main {
@@ -79,9 +83,6 @@
 
 	h1 {
 		font-size: var(--step-4);
-	}
-	h2 {
-		font-size: var(--step-2);
 	}
 	h2 {
 		font-size: var(--step-2);
@@ -192,6 +193,11 @@
 		--line: light-dark(#d9dee8, #263045);
 		--accent: light-dark(#1a4fd6, #7a9bff);
 
+		/* Sizing tokens */
+		--radius: 0.5rem;
+		--text-s: 0.875rem;
+		--text-xl: var(--step-2);
+
 		/* Semantic state colors */
 		--state-future: light-dark(#1a4fd6, #7a9bff);
 		--state-now: light-dark(#14804a, #4fd18b);
@@ -201,7 +207,7 @@
 	}
 }
 
-@layer pagelayout {
+@layer page-layout {
 	ul.toc {
 		a {
 			color: inherit;
@@ -382,7 +388,7 @@
 
 		&:state(invalid) {
 			--color-text: var(--state-invalid);
-			--label-text: "ivalid date";
+			--label-text: "invalid date";
 		}
 		&:is(:state(past), :state(invalid)) formatted-duration {
 			display: none;

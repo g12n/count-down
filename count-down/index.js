@@ -80,10 +80,9 @@ export class CountdownElement extends HTMLElement {
 		if (!this.targetDate) return;
 		const now = Temporal.Now.plainDateTimeISO();
 
-
 		const duration = now.until(this.targetDate, {
 			largestUnit: this.dataset.largestUnit || "year",
-			smallestUnit: this.dataset.smallestUnit  || "seconds",
+			smallestUnit: this.dataset.smallestUnit || "second",
 		});
 
 		this.status = duration.sign;

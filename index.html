@@ -3,17 +3,13 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="text-scale" content="scale" />
+		<meta name="referrer" content="strict-origin-when-cross-origin" />
 		<meta
 			name="description"
 			content="Two custom elements built on the Temporal API and Intl.DurationFormat: count-down and formatted-duration."
 		/>
 		<title>Count-down component Demo</title>
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link
-			rel="stylesheet"
-			href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;600&display=swap"
-		/>
 		<link rel="stylesheet" href="styles.css" />
 	</head>
 	<body>
@@ -226,7 +222,7 @@
 						<dd>
 							<formatted-duration
 								locale="de"
-								duration="P1Y1M3W2DT1H1m3s"
+								duration="P1Y1M3W2DT1H1M3S"
 							></formatted-duration>
 						</dd>
 					</div>
@@ -235,7 +231,7 @@
 						<dd>
 							<formatted-duration
 								locale="fr"
-								duration="P1Y1M3W2DT1H1m3s"
+								duration="P1Y1M3W2DT1H1M3S"
 							></formatted-duration>
 						</dd>
 					</div>
@@ -244,7 +240,7 @@
 						<dd>
 							<formatted-duration
 								locale="sw"
-								duration="P1Y1M3W2DT1H1m3s"
+								duration="P1Y1M3W2DT1H1M3S"
 							></formatted-duration>
 						</dd>
 					</div>
@@ -253,7 +249,7 @@
 						<dd>
 							<formatted-duration
 								locale="fi"
-								duration="P1Y1M3W2DT1H1m3s"
+								duration="P1Y1M3W2DT1H1M3S"
 							></formatted-duration>
 						</dd>
 					</div>
@@ -262,7 +258,7 @@
 						<dd>
 							<formatted-duration
 								locale="pt"
-								duration="P1Y1M3W2DT1H1m3s"
+								duration="P1Y1M3W2DT1H1M3S"
 							></formatted-duration>
 						</dd>
 					</div>
@@ -271,7 +267,7 @@
 						<dd>
 							<formatted-duration
 								locale="es"
-								duration="P1Y1M3W2DT1H1m3s"
+								duration="P1Y1M3W2DT1H1M3S"
 							></formatted-duration>
 						</dd>
 					</div>
@@ -280,7 +276,7 @@
 						<dd>
 							<formatted-duration
 								locale="ksh"
-								duration="P1Y1M3W2DT1H1m3s"
+								duration="P1Y1M3W2DT1H1M3S"
 							></formatted-duration>
 						</dd>
 					</div>
@@ -288,11 +284,27 @@
 			</section>
 		</main>
 
-		<script src="https://cdn.jsdelivr.net/npm/temporal-polyfill@0.3.0/global.min.js"></script>
-		<script
-			type="module"
-			src="./formatted-duration/formatted-duration.js"
-		></script>
-		<script type="module" src="./count-down/count-down.js"></script>
+		<script type="module">
+			// Temporal is native in Chrome/Edge 144+ and Firefox 139+; load the
+			// polyfill (with SRI) only where it is missing, then define the elements.
+			if (typeof Temporal === "undefined") {
+				await new Promise((resolve, reject) => {
+					const script = document.createElement("script");
+					script.src =
+						"https://cdn.jsdelivr.net/npm/temporal-polyfill@0.3.0/global.min.js";
+					script.integrity =
+						"sha384-df2iQaZF4qu/OgVkNSZQqLfqm4saLMMEaHCH8tzdu0JcIZ4VR3Y22rvlq6W1HOjX";
+					script.crossOrigin = "anonymous";
+					script.referrerPolicy = "no-referrer";
+					script.onload = resolve;
+					script.onerror = reject;
+					document.head.append(script);
+				});
+			}
+			await Promise.all([
+				import("./formatted-duration/formatted-duration.js"),
+				import("./count-down/count-down.js"),
+			]);
+		</script>
 	</body>
 </html>

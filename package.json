@@ -1,0 +1,54 @@
+{
+  "name": "@g12n/time",
+  "version": "0.0.1",
+  "description": "collection of webcomponents to display times, dates, countdown, timers etc. ",
+  "homepage": "https://github.com/g12n/count-down#readme",
+  "bugs": {
+    "url": "https://github.com/g12n/count-down/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/g12n/count-down.git"
+  },
+  "license": "ISC",
+  "author": "g12n",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dependencies": "nudeps",
+    "prepare": "nudeps",
+    "docs:build": "eleventy --config=docs/eleventy.config.js",
+    "docs:serve": "eleventy --config=docs/eleventy.config.js --serve",
+    "cem": "node scripts/generate-cem.js && node scripts/generate-readmes.js",
+    "readme": "node scripts/generate-readmes.js",
+    "build": "npm run cem && npm run docs:build",
+    "version": "npm run cem && git add custom-elements.json",
+    "postversion": "git push --follow-tags",
+    "release:patch": "npm version patch",
+    "release:minor": "npm version minor",
+    "release:major": "npm version major",
+    "dev": "npm run docs:serve"
+  },
+  "devDependencies": {
+    "@wc-toolkit/cem-generator": "^0.2.10",
+    "nudeps": "^0.4.3"
+  },
+  "dependencies": {
+    "@11ty/eleventy": "4.0.0-alpha.10",
+    "@accelint/temporal": "^0.1.6",
+    "@wc-toolkit/cem-utilities": "^1.6.0"
+  },
+  "private": true,
+  "files": [
+    "src",
+    "custom-elements.json"
+  ],
+  "exports": {
+    "./count-down": "./src/count-down/count-down.js",
+    "./count-down/define": "./src/count-down/define.js",
+    "./formatted-duration": "./src/formatted-duration/formatted-duration.js",
+    "./formatted-duration/define": "./src/formatted-duration/define.js"
+  },
+  "customElements": "custom-elements.json"
+}

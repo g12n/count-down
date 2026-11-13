@@ -11,6 +11,8 @@
 		/>
 		<title>Count-down component Demo</title>
 		<link rel="stylesheet" href="styles.css" />
+		<script src="./importmap.js"></script>
+
 	</head>
 	<body>
 		<header class="masthead">
@@ -53,9 +55,9 @@
 				</header>
 				<dl class="spec">
 					<dt>Attributes</dt>
-					<dd><code>data-target-date</code></dd>
-					<dd><code>data-largest-unit</code></dd>
-					<dd><code>data-smallest-unit</code></dd>
+					<dd><code>target-date</code></dd>
+					<dd><code>largest-unit</code></dd>
+					<dd><code>smallest-unit</code></dd>
 
 					<dt>States</dt>
 					<dd><code>future</code></dd>
@@ -66,49 +68,66 @@
 
 				<h3>States</h3>
 
-				<figure class="demo">
-					<count-down
-						data-target-date="2026-12-24T18:00"
-						data-largest-unit="minute"
-						data-smallest-unit="minute"
-					>
-						<formatted-duration locale="en"></formatted-duration>
-					</count-down>
-					<figcaption>
-						data-target-date="2026-12-24T18:00" data-largest-unit="minute"
-					</figcaption>
-				</figure>
+				<html-demo>
+					<pre class="language-html"><code>&lt;count-down
+	target-date="2026-12-24T18:00"
+	largest-unit="minute"
+	smallest-unit="minute"
+&gt;
+	&lt;formatted-duration locale="en"&gt;&lt;/formatted-duration&gt;
+&lt;/count-down&gt;</code></pre>
+				</html-demo>
 
-				<figure class="demo">
-					<count-down
-						data-target-date="2026-02-06T23:09"
-						data-largest-unit="week"
-						data-smallest-unit="second"
-					>
-						<formatted-duration locale="en"></formatted-duration>
-					</count-down>
-					<figcaption>
-						data-target-date="2026-02-06T23:09"<br />
-						data-largest-unit="week"
-					</figcaption>
-				</figure>
+				<html-demo>
+					<pre class="language-html"><code>&lt;count-down
+	target-date="2026-02-06T23:09"
+	largest-unit="week"
+	smallest-unit="second"
+&gt;
+	&lt;formatted-duration locale="en"&gt;&lt;/formatted-duration&gt;
+&lt;/count-down&gt;</code></pre>
+				</html-demo>
 
-				<figure class="demo">
-					<count-down data-target-date="2021-12-15" data-largest-unit="second">
-						<formatted-duration locale="en"></formatted-duration>
-					</count-down>
-					<figcaption>
-						data-target-date="2021-12-15"<br />
-						data-largest-unit="second"
-					</figcaption>
-				</figure>
+				<html-demo>
+					<pre class="language-html"><code>&lt;count-down target-date="2021-12-15" largest-unit="second"&gt;
+	&lt;formatted-duration locale="en"&gt;&lt;/formatted-duration&gt;
+&lt;/count-down&gt;</code></pre>
+				</html-demo>
 
-				<figure class="demo">
-					<count-down data-target-date="soon">
-						<formatted-duration locale="en"></formatted-duration>
-					</count-down>
-					<figcaption>data-target-date="soon"</figcaption>
-				</figure>
+				<html-demo>
+					<pre class="language-html"><code>&lt;count-down
+	target-date="2026-11-12T00:00"
+	now-duration="P1D"
+&gt;
+	&lt;formatted-duration locale="en"&gt;&lt;/formatted-duration&gt;
+&lt;/count-down&gt;</code></pre>
+				</html-demo>
+
+				<html-demo>
+					<pre class="language-html"><code>&lt;count-down
+	target-date="2000-12-24T00:00"
+	recurring
+	interval="P1Y"
+	largest-unit="day"
+&gt;
+	&lt;formatted-duration locale="en"&gt;&lt;/formatted-duration&gt;
+&lt;/count-down&gt;</code></pre>
+				</html-demo>
+
+				<html-demo>
+					<pre class="language-html"><code>&lt;count-down target-date="soon"&gt;
+	&lt;formatted-duration locale="en"&gt;&lt;/formatted-duration&gt;
+&lt;/count-down&gt;</code></pre>
+				</html-demo>
+
+				<p class="section__note">
+					Each state is exposed as a custom state, so you can style it with
+					<code>:state()</code>.
+				</p>
+				<pre class="language-css"><code>count-down:state(future) { color: var(--state-future); }
+count-down:state(now) { color: var(--state-now); }
+count-down:state(past) { color: var(--state-past); }
+count-down:state(invalid) { color: var(--state-invalid); }</code></pre>
 			</section>
 
 			<!-- ============ Component 2: formatted-duration ============ -->
@@ -302,9 +321,10 @@
 				});
 			}
 			await Promise.all([
-				import("./formatted-duration/formatted-duration.js"),
-				import("./count-down/count-down.js"),
+				import("./src/formatted-duration/define.js"),
+				import("./src/count-down/define.js"),
 			]);
 		</script>
+		<script src="https://nudeui.com/components/html-demo/html-demo.js" type="module"></script>
 	</body>
 </html>

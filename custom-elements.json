@@ -1,0 +1,370 @@
+{
+	"schemaVersion": "2.1.0",
+	"modules": [
+		{
+			"kind": "javascript-module",
+			"source": "src/count-down/count-down.js",
+			"path": "src/count-down/count-down.js",
+			"declarations": [
+				{
+					"kind": "class",
+					"customElement": true,
+					"name": "CountdownElement",
+					"description": "Counts down to a target date and exposes its status as custom states.",
+					"tagName": "count-down",
+					"members": [
+						{
+							"kind": "method",
+							"name": "attributeChangedCallback",
+							"parameters": [
+								{
+									"name": "name",
+									"parsedType": {
+										"text": "any"
+									}
+								},
+								{
+									"name": "oldValue",
+									"parsedType": {
+										"text": "any"
+									}
+								},
+								{
+									"name": "newValue",
+									"parsedType": {
+										"text": "any"
+									}
+								}
+							],
+							"return": {
+								"type": {
+									"text": "void"
+								}
+							}
+						},
+						{
+							"kind": "method",
+							"name": "connectedCallback",
+							"return": {
+								"type": {
+									"text": "void"
+								}
+							}
+						},
+						{
+							"kind": "method",
+							"name": "disconnectedCallback",
+							"return": {
+								"type": {
+									"text": "void"
+								}
+							}
+						},
+						{
+							"kind": "field",
+							"name": "intervalId",
+							"description": "setInterval ID for countdown updates",
+							"type": {
+								"text": "number|null"
+							}
+						},
+						{
+							"kind": "method",
+							"name": "setDuration",
+							"parameters": [
+								{
+									"name": "value",
+									"parsedType": {
+										"text": "any"
+									}
+								}
+							],
+							"return": {
+								"type": {
+									"text": "void"
+								}
+							}
+						},
+						{
+							"kind": "method",
+							"name": "setExclusiveState",
+							"parameters": [
+								{
+									"name": "active",
+									"parsedType": {
+										"text": "any"
+									}
+								}
+							],
+							"return": {
+								"type": {
+									"text": "void"
+								}
+							}
+						},
+						{
+							"kind": "method",
+							"name": "startCountdown",
+							"return": {
+								"type": {
+									"text": "void"
+								}
+							}
+						},
+						{
+							"kind": "field",
+							"name": "status",
+							"parsedType": {
+								"text": "any"
+							}
+						},
+						{
+							"kind": "method",
+							"name": "stopCountdown",
+							"return": {
+								"type": {
+									"text": "void"
+								}
+							}
+						},
+						{
+							"kind": "field",
+							"name": "targetDate",
+							"description": "Parsed target date",
+							"type": {
+								"text": "Temporal.PlainDateTime|null"
+							}
+						},
+						{
+							"kind": "method",
+							"name": "tick",
+							"return": {
+								"type": {
+									"text": "void"
+								}
+							}
+						}
+					],
+					"attributes": [
+						{
+							"name": "interval",
+							"description": "Interval of a recurring event (default: \"P1Y\")",
+							"type": {
+								"text": "string"
+							}
+						},
+						{
+							"name": "largest-unit",
+							"description": "Largest Temporal unit shown (e.g. \"week\", \"day\", \"minute\") (default: \"year\")",
+							"type": {
+								"text": "string"
+							}
+						},
+						{
+							"name": "now-duration",
+							"description": "Duration of the now state after the target date has passed (default: \"P1D\")",
+							"type": {
+								"text": "string"
+							}
+						},
+						{
+							"name": "recurring",
+							"description": "countdown for recurring events like birthdays or christmas (default: false)",
+							"type": {
+								"text": "boolean"
+							}
+						},
+						{
+							"name": "smallest-unit",
+							"description": "Smallest Temporal unit shown (default: \"second\")",
+							"type": {
+								"text": "string"
+							}
+						},
+						{
+							"name": "target-date",
+							"description": "Target date/time in ISO 8601 format",
+							"type": {
+								"text": "string"
+							}
+						}
+					],
+					"cssStates": [
+						{
+							"name": "future",
+							"description": "Target date is in the future"
+						},
+						{
+							"name": "invalid",
+							"description": "target-date or a unit could not be parsed"
+						},
+						{
+							"name": "now",
+							"description": "Target date is reached"
+						},
+						{
+							"name": "past",
+							"description": "Target date has passed"
+						}
+					]
+				}
+			],
+			"exports": [
+				{
+					"kind": "custom-element-definition",
+					"name": "count-down",
+					"declaration": {
+						"name": "CountdownElement",
+						"module": "src/count-down/count-down.js"
+					}
+				},
+				{
+					"kind": "js",
+					"name": "CountdownElement",
+					"declaration": {
+						"name": "CountdownElement",
+						"module": "src/count-down/count-down.js"
+					}
+				}
+			]
+		},
+		{
+			"kind": "javascript-module",
+			"source": "src/formatted-duration/formatted-duration.js",
+			"path": "src/formatted-duration/formatted-duration.js",
+			"declarations": [
+				{
+					"kind": "class",
+					"customElement": true,
+					"name": "DurationElement",
+					"description": "Writes an ISO 8601 duration as localized text using `Intl.DurationFormat`.\nRequires the `Temporal` and `Intl.DurationFormat` globals. Rendering replaces any authored children.",
+					"tagName": "formatted-duration",
+					"members": [
+						{
+							"kind": "method",
+							"name": "attributeChangedCallback",
+							"parameters": [
+								{
+									"name": "name",
+									"parsedType": {
+										"text": "any"
+									}
+								},
+								{
+									"name": "oldValue",
+									"parsedType": {
+										"text": "any"
+									}
+								},
+								{
+									"name": "newValue",
+									"parsedType": {
+										"text": "any"
+									}
+								}
+							],
+							"return": {
+								"type": {
+									"text": "void"
+								}
+							}
+						},
+						{
+							"kind": "method",
+							"name": "connectedCallback",
+							"return": {
+								"type": {
+									"text": "void"
+								}
+							}
+						},
+						{
+							"kind": "field",
+							"name": "duration",
+							"description": "duration object",
+							"type": {
+								"text": "Temporal.Duration"
+							}
+						},
+						{
+							"kind": "field",
+							"name": "formatter",
+							"description": "Intl.DurationFormat",
+							"type": {
+								"text": "Intl.DurationFormat"
+							}
+						},
+						{
+							"kind": "method",
+							"name": "render",
+							"return": {
+								"type": {
+									"text": "void"
+								}
+							}
+						},
+						{
+							"kind": "field",
+							"name": "styles",
+							"static": true,
+							"type": {
+								"text": "string[]"
+							}
+						},
+						{
+							"kind": "method",
+							"name": "updateFormatter",
+							"description": "Rebuilds the formatter from the locale and duration-style attributes.\nAn invalid value is reported with a warning and replaced by its default\n(navigator.language / \"long\"), so rendering never throws.",
+							"return": {
+								"type": {
+									"text": "void"
+								}
+							}
+						}
+					],
+					"attributes": [
+						{
+							"name": "duration",
+							"description": "ISO 8601 duration to display (an unparsable value falls back to P0D)",
+							"type": {
+								"text": "string"
+							}
+						},
+						{
+							"name": "duration-style",
+							"description": "Duration format style: \"long\", \"short\", \"narrow\", or \"digital\" (default: \"long\"); an invalid value falls back to \"long\"",
+							"type": {
+								"text": "string"
+							}
+						},
+						{
+							"name": "locale",
+							"description": "BCP 47 language tag; an invalid tag falls back to navigator.language",
+							"type": {
+								"text": "string"
+							}
+						}
+					]
+				}
+			],
+			"exports": [
+				{
+					"kind": "js",
+					"name": "DurationElement",
+					"declaration": {
+						"name": "DurationElement",
+						"module": "src/formatted-duration/formatted-duration.js"
+					}
+				},
+				{
+					"kind": "custom-element-definition",
+					"name": "formatted-duration",
+					"declaration": {
+						"name": "DurationElement",
+						"module": "src/formatted-duration/formatted-duration.js"
+					}
+				}
+			]
+		}
+	]
+}

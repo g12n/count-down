@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="text-scale" content="scale" />
+		<meta name="referrer" content="strict-origin-when-cross-origin" />
+		<meta
+			name="description"
+			content="Two custom elements built on the Temporal API and Intl.DurationFormat: count-down and formatted-duration."
+		/>
+		<title>Count-down component Demo</title>
+		<link rel="stylesheet" href="styles.css" />
+		<script src="./importmap.js"></script>
+
+	</head>
+	<body>
+	<header class="masthead">
+			<h1>@g12n/time</h1>
+			<p>
+				Two custom elements built on the Temporal API.
+				<code>&lt;count-down&gt;</code> can show the time left with
+				<code>&lt;formatted-duration&gt;</code>, which also works on its own.
+			</p>
+	</header>
+
+{% for component in components %}
+<section id="{{component.tagName}}">
+    <h2>{{component.name}}</h2>
+    
+{% renderTemplate "njk,md", { component: component } %}
+{{ component.componentDetails | safe }}
+{% endrenderTemplate %}
+</section>
+{% endfor %}
+</body>

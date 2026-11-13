@@ -27,3 +27,6 @@ Desktop.ini
 # Dependencies and logs
 node_modules/
 *.log
+
+# Eleventy build output
+_site/

@@ -1,36 +1,82 @@
 <!doctype html>
 <html lang="en">
 	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta name="text-scale" content="scale" />
-		<meta name="referrer" content="strict-origin-when-cross-origin" />
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<meta name="text-scale" content="scale"/>
+		<meta name="referrer" content="strict-origin-when-cross-origin"/>
 		<meta
 			name="description"
 			content="Two custom elements built on the Temporal API and Intl.DurationFormat: count-down and formatted-duration."
 		/>
-		<title>Count-down component Demo</title>
-		<link rel="stylesheet" href="styles.css" />
+		<title>@g12n/time Demo</title>
+		<link rel="stylesheet" href="styles.css"/>
 		<script src="./importmap.js"></script>
-
 	</head>
 	<body>
-	<header class="masthead">
+		<header class="masthead">
 			<h1>@g12n/time</h1>
 			<p>
 				Two custom elements built on the Temporal API.
 				<code>&lt;count-down&gt;</code> can show the time left with
 				<code>&lt;formatted-duration&gt;</code>, which also works on its own.
 			</p>
-	</header>
+		</header>
 
-{% for component in components %}
-<section id="{{component.tagName}}">
-    <h2>{{component.name}}</h2>
-    
-{% renderTemplate "njk,md", { component: component } %}
+		<nav aria-label="Components">
+			<ul class="toc">
+				{% for component in components %}
+				<li>
+					<a href="#{{ component.tagName }}">
+						<code>&lt;{{ component.tagName }}&gt;</code>
+						<span>{{ component.description | safe }}</span>
+					</a>
+				</li>
+				{% endfor %}
+			</ul>
+		</nav>
+
+		<main>
+			{% for component in components %}
+			<section class="component" id="{{ component.tagName }}" aria-labelledby="{{ component.tagName }}-title">
+				<h2 id="{{ component.tagName }}-title"><code>&lt;{{ component.tagName }}&gt;</code></h2>
+
+				{% renderTemplate "njk,md", {component: component} %}
 {{ component.componentDetails | safe }}
-{% endrenderTemplate %}
-</section>
-{% endfor %}
-</body>
+				{% endrenderTemplate %}
+
+				{% if component.examples %}
+				<h3>Examples</h3>
+				{% renderTemplate "njk,md", {component: component} %}
+{{ component.examples | safe }}
+				{% endrenderTemplate %}
+				{% endif %}
+			</section>
+			{% endfor %}
+		</main>
+
+		<script type="module">
+			// Temporal is native in Chrome/Edge 144+ and Firefox 139+; load the
+			// polyfill (with SRI) only where it is missing, then define the elements.
+			if (typeof Temporal === "undefined") {
+				await new Promise((resolve, reject) => {
+					const script = document.createElement("script");
+					script.src =
+						"https://cdn.jsdelivr.net/npm/temporal-polyfill@0.3.0/global.min.js";
+					script.integrity =
+						"sha384-df2iQaZF4qu/OgVkNSZQqLfqm4saLMMEaHCH8tzdu0JcIZ4VR3Y22rvlq6W1HOjX";
+					script.crossOrigin = "anonymous";
+					script.referrerPolicy = "no-referrer";
+					script.onload = resolve;
+					script.onerror = reject;
+					document.head.append(script);
+				});
+			}
+			await Promise.all([
+				import("./src/formatted-duration/define.js"),
+				import("./src/count-down/define.js"),
+			]);
+		</script>
+		<script src="https://nudeui.com/components/html-demo/html-demo.js" type="module"></script>
+	</body>
+</html>

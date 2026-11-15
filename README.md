@@ -51,18 +51,3 @@ to GitHub Pages.
   `largest-unit`, `smallest-unit`; `duration`, `locale`, `duration-style`). Their
   only coupling is the `duration` attribute `<count-down>` sets on its
   `<formatted-duration>` child.
-- The modules must be loaded over HTTP (ES module imports), not from `file://`.
-
-## Global Side Effects
-- `docs/index.njk` fetches `temporal-polyfill@0.3.0` (`global.min.js`, with SRI) from
-  `cdn.jsdelivr.net` when `Temporal` is missing.
-- `docs/index.njk` loads the local `docs/components/html-demo` element for the demo
-  widgets and [microlighter](https://daverupert.com/2026/08/microlighter/) (from
-  `docs/client_modules`, via the import map) to highlight their code. No external
-  requests are involved.
-- `<count-down>` runs a 1000 ms interval while connected; `<formatted-duration>`
-  rewrites its own children on each render.
-
-## System Verification
-- No automated tests. Run `npm run dev` (Eleventy serve) and open the printed URL;
-  the examples come from `src/*/examples.md`.

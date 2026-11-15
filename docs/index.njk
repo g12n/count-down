@@ -11,9 +11,11 @@
 		/>
 		<title>@g12n/time Demo</title>
 		<link rel="stylesheet" href="styles.css"/>
+		<link rel="stylesheet" href="microlighter-themes/github.css"/>
 		<script src="./importmap.js"></script>
 	</head>
-	<body>
+	<body data-syntax-theme="github">
+
 		<header class="masthead">
 			<h1>@g12n/time</h1>
 			<p>
@@ -75,8 +77,12 @@
 			await Promise.all([
 				import("./src/formatted-duration/define.js"),
 				import("./src/count-down/define.js"),
+				import("./components/html-demo/define.js"),
 			]);
 		</script>
-		<script src="https://nudeui.com/components/html-demo/html-demo.js" type="module"></script>
+		<script type="module">
+			import "custom-attributes-polyfill";
+			await import("microlighter/microlighter.min.js");
+		</script>
 	</body>
 </html>

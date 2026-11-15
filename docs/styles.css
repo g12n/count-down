@@ -395,3 +395,18 @@
 		}
 	}
 }
+
+
+pre{ 
+	tab-size: 4ch;
+	code{
+		background-color:light-dark(oklch(0.9632 0.0123 102.28), oklch(0.2632 0.0123 102.28));
+		display: block;
+		padding: 1ch;
+		border-radius: 1ch;
+		overflow-x: scroll;
+	
+		scrollbar-width: thin;
+		scrollbar-color: white transparent ;
+	}
+}

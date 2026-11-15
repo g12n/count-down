@@ -56,8 +56,10 @@ to GitHub Pages.
 ## Global Side Effects
 - `docs/index.njk` fetches `temporal-polyfill@0.3.0` (`global.min.js`, with SRI) from
   `cdn.jsdelivr.net` when `Temporal` is missing.
-- `docs/index.njk` loads `html-demo.js` from `nudeui.com`, which loads Prism from
-  `prismjs.com`, for the demo code blocks.
+- `docs/index.njk` loads the local `docs/components/html-demo` element for the demo
+  widgets and [microlighter](https://daverupert.com/2026/08/microlighter/) (from
+  `docs/client_modules`, via the import map) to highlight their code. No external
+  requests are involved.
 - `<count-down>` runs a 1000 ms interval while connected; `<formatted-duration>`
   rewrites its own children on each render.
 

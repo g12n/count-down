@@ -37,7 +37,10 @@
   "dependencies": {
     "@11ty/eleventy": "4.0.0-alpha.10",
     "@accelint/temporal": "^0.1.6",
-    "@wc-toolkit/cem-utilities": "^1.6.0"
+    "@microsoft/focusgroup-polyfill": "^1.6.0",
+    "@wc-toolkit/cem-utilities": "^1.6.0",
+    "i": "^0.3.7",
+    "microlighter": "^2.2.0"
   },
   "private": true,
   "files": [

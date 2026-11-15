@@ -208,9 +208,8 @@ in CSS or JavaScript if you want to render the time yourself.
 	count-down.raw:state(future)::after { content: "duration = " attr(duration); font-family: monospace; }
 </style>
 
-<count-down class="raw" target-date="2030-01-01T00:00" largest-unit="day">
-	<formatted-duration></formatted-duration>
-</count-down>
+<count-down class="raw" target-date="2030-01-01T00:00" largest-unit="day"></count-down>
 ```
 
 </html-demo>
+

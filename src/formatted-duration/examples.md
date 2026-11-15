@@ -17,10 +17,26 @@ Give it an ISO 8601 duration. It works anywhere on the page and does not need `<
 <html-demo>
 
 ```html
-<formatted-duration locale="en" duration="P1Y2M3DT4H5M6S" duration-style="long"></formatted-duration>
-<formatted-duration locale="en" duration="P1Y2M3DT4H5M6S" duration-style="short"></formatted-duration>
-<formatted-duration locale="en" duration="P1Y2M3DT4H5M6S" duration-style="narrow"></formatted-duration>
-<formatted-duration locale="en" duration="PT1H5M6S" duration-style="digital"></formatted-duration>
+<formatted-duration
+	locale="en"
+	duration="P1Y2M3DT4H5M6S"
+	duration-style="long"
+></formatted-duration>
+<formatted-duration
+	locale="en"
+	duration="P1Y2M3DT4H5M6S"
+	duration-style="short"
+></formatted-duration>
+<formatted-duration
+	locale="en"
+	duration="P1Y2M3DT4H5M6S"
+	duration-style="narrow"
+></formatted-duration>
+<formatted-duration
+	locale="en"
+	duration="PT1H5M6S"
+	duration-style="digital"
+></formatted-duration>
 ```
 
 </html-demo>
@@ -33,11 +49,26 @@ the same markup reads right for everyone. The last line below has no `locale`.
 <html-demo>
 
 ```html
-<formatted-duration locale="en" duration="P1Y1M3W2DT1H1M3S"></formatted-duration>
-<formatted-duration locale="de" duration="P1Y1M3W2DT1H1M3S"></formatted-duration>
-<formatted-duration locale="fr" duration="P1Y1M3W2DT1H1M3S"></formatted-duration>
-<formatted-duration locale="ja" duration="P1Y1M3W2DT1H1M3S"></formatted-duration>
-<formatted-duration locale="ar" duration="P1Y1M3W2DT1H1M3S"></formatted-duration>
+<formatted-duration
+	locale="en"
+	duration="P1Y1M3W2DT1H1M3S"
+></formatted-duration>
+<formatted-duration
+	locale="de"
+	duration="P1Y1M3W2DT1H1M3S"
+></formatted-duration>
+<formatted-duration
+	locale="fr"
+	duration="P1Y1M3W2DT1H1M3S"
+></formatted-duration>
+<formatted-duration
+	locale="ja"
+	duration="P1Y1M3W2DT1H1M3S"
+></formatted-duration>
+<formatted-duration
+	locale="ar"
+	duration="P1Y1M3W2DT1H1M3S"
+></formatted-duration>
 <formatted-duration duration="P1Y1M3W2DT1H1M3S"></formatted-duration>
 ```
 
@@ -50,10 +81,40 @@ Cooking time, video length, trip length, a warranty: anything you would otherwis
 <html-demo>
 
 ```html
-<p>Cooking time: <formatted-duration locale="en" duration="PT45M" style="display:inline"></formatted-duration></p>
-<p>Video length: <formatted-duration locale="en" duration="PT3M45S" duration-style="digital" style="display:inline"></formatted-duration></p>
-<p>Trip: <formatted-duration locale="en" duration="P2W3D" duration-style="short" style="display:inline"></formatted-duration></p>
-<p>Warranty: <formatted-duration locale="en" duration="P2Y" style="display:inline"></formatted-duration></p>
+<p>
+	Cooking time:
+	<formatted-duration
+		locale="en"
+		duration="PT45M"
+		style="display:inline"
+	></formatted-duration>
+</p>
+<p>
+	Video length:
+	<formatted-duration
+		locale="en"
+		duration="PT3M45S"
+		duration-style="digital"
+		style="display:inline"
+	></formatted-duration>
+</p>
+<p>
+	Trip:
+	<formatted-duration
+		locale="en"
+		duration="P2W3D"
+		duration-style="short"
+		style="display:inline"
+	></formatted-duration>
+</p>
+<p>
+	Warranty:
+	<formatted-duration
+		locale="en"
+		duration="P2Y"
+		style="display:inline"
+	></formatted-duration>
+</p>
 ```
 
 </html-demo>
@@ -66,16 +127,33 @@ numbers or to colour one unit.
 
 <html-demo>
 
-```html
-<style>
-	formatted-duration.accent .integer { font-size: 2rem; font-weight: 800; color: tomato; }
-	formatted-duration.accent .unit { text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.1em; }
-	formatted-duration.accent .minute { color: royalblue; }
-</style>
-
-<formatted-duration class="accent" locale="en" duration="PT2H30M"></formatted-duration>
+```css
+formatted-duration.accent .integer {
+	font-size: 2rem;
+	font-weight: 800;
+	color: tomato;
+}
+formatted-duration.accent .unit {
+	text-transform: uppercase;
+	font-size: 0.75rem;
+	letter-spacing: 0.1em;
+}
+formatted-duration.accent .minute {
+	color: royalblue;
+}
 ```
 
+```html
+<formatted-duration
+	class="accent"
+	locale="en"
+	duration="PT2H30M"
+></formatted-duration>
+```
+
+```javascript
+console.log("hello")
+```
 </html-demo>
 
 ### Live preview from an input
@@ -90,15 +168,23 @@ shows what a value means.
 	Minutes
 	<input id="duration-demo-input" type="range" min="0" max="240" value="90" />
 </label>
-<formatted-duration id="duration-demo" locale="en" duration="PT90M"></formatted-duration>
+<formatted-duration
+	id="duration-demo"
+	locale="en"
+	duration="PT90M"
+></formatted-duration>
+```
 
-<script>
-	document.getElementById("duration-demo-input").addEventListener("input", (event) => {
-		const total = Number(event.target.value);
-		const duration = `PT${Math.floor(total / 60)}H${total % 60}M`;
-		document.getElementById("duration-demo").setAttribute("duration", duration);
-	});
-</script>
+```javascript
+document
+    .getElementById("duration-demo-input")
+    .addEventListener("input", (event) => {
+        const total = Number(event.target.value);
+        const duration = `PT${Math.floor(total / 60)}H${total % 60}M`;
+        document
+        .getElementById("duration-demo")
+        .setAttribute("duration", duration);
+    });
 ```
 
 </html-demo>
@@ -114,7 +200,11 @@ log a warning in the console.
 ```html
 <formatted-duration locale="en" duration="soon"></formatted-duration>
 <formatted-duration locale="not a locale" duration="PT5M"></formatted-duration>
-<formatted-duration locale="en" duration="PT5M" duration-style="huge"></formatted-duration>
+<formatted-duration
+	locale="en"
+	duration="PT5M"
+	duration-style="huge"
+></formatted-duration>
 ```
 
 </html-demo>
